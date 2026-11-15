@@ -135,7 +135,7 @@ export const LandingView: React.FC = () => {
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--brand)] to-[var(--brand-2)] text-white shadow-sm shadow-[var(--brand)]/25">
               <Scale className="h-4 w-4" />
             </span>
-            <span>Takwim Persekolahan</span>
+            <span>TakwimSekolah</span>
           </a>
 
           <nav className="hidden items-center gap-7 text-sm font-medium text-[var(--ink-2)] md:flex">
@@ -195,7 +195,7 @@ export const LandingView: React.FC = () => {
                 Agih tugas guru dengan <span className="bg-gradient-to-r from-[var(--brand)] to-[var(--accent)] bg-clip-text text-transparent">adil &amp; telus</span>. Buku pengurusan siap terus.
               </h1>
               <p className="mt-5 max-w-[54ch] text-base leading-relaxed text-[var(--ink-2)]">
-                Setiap pentadbir mengisi jawatankuasa bahagiannya sendiri. Sistem mengira beban setiap guru secara langsung, menunjukkan siapa yang terlalu berat dan siapa yang masih ringan, kemudian menjana Buku Pengurusan dan Surat Lantikan dalam format PDF.
+                Setiap pentadbir mengisi jawatankuasa bahagiannya sendiri. TakwimSekolah mengira beban setiap guru secara langsung, menunjukkan siapa yang terlalu berat dan siapa yang masih ringan, kemudian menjana Buku Pengurusan dan Surat Lantikan dalam format PDF.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <button
@@ -439,7 +439,7 @@ export const LandingView: React.FC = () => {
 
       <footer className="border-t border-[var(--line)] bg-[var(--surface)] py-6">
         <div className="mx-auto flex max-w-[1160px] flex-wrap items-center justify-between gap-4 px-5 text-xs text-[var(--ink-3)]">
-          <span>© {new Date().getFullYear()} Takwim Persekolahan · Sistem Agihan Tugas Guru</span>
+          <span>© {new Date().getFullYear()} TakwimSekolah · Sistem Agihan Tugas Guru</span>
           <span>Agihan tugas guru yang adil, telus dan siap dicetak.</span>
         </div>
       </footer>

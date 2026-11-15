@@ -126,7 +126,7 @@ export const ReportView: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Laporan-TugasAdil-${session.tahun.label}.json`;
+    a.download = `Laporan-TakwimSekolah-${session.tahun.label}.json`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     notify('Data JSON penuh dimuat turun.');

@@ -100,7 +100,7 @@ export const WorkspaceShell: React.FC<{ children: React.ReactNode }> = ({ childr
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--brand)] to-[var(--brand-2)] text-white shadow-sm shadow-[var(--brand)]/25">
             <Scale className="h-4 w-4" />
           </span>
-          <span>Takwim Persekolahan</span>
+          <span>TakwimSekolah</span>
         </button>
         <button
           type="button"

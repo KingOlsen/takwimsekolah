@@ -73,7 +73,7 @@ export const SettingsView: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `TugasAdil-${store.sekolah.nama.replace(/\s+/g, '-')}-Sandaran.json`;
+    a.download = `TakwimSekolah-${store.sekolah.nama.replace(/\s+/g, '-')}-Sandaran.json`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     notify('Fail sandaran JSON dimuat turun.');
