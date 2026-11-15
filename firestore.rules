@@ -1,0 +1,122 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isAdmin() {
+      return isVerified() && (
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) ||
+        request.auth.token.email == "sultanhaseng@gmail.com"
+      );
+    }
+
+    function isValidWorkspace(data) {
+      return data.keys().hasAll([
+          'ownerId',
+          'schoolName',
+          'sesiAktifId',
+          'penggunaAktifId',
+          'sekolah',
+          'pengguna',
+          'sesi',
+          'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'ownerId',
+          'schoolName',
+          'sesiAktifId',
+          'penggunaAktifId',
+          'sekolah',
+          'pengguna',
+          'sesi',
+          'updatedAt'
+        ]) &&
+        data.ownerId is string &&
+        data.ownerId.size() >= 1 &&
+        data.ownerId.size() <= 128 &&
+        data.ownerId.matches('^[a-zA-Z0-9_\\-]+$') &&
+        data.schoolName is string &&
+        data.schoolName.size() >= 1 &&
+        data.schoolName.size() <= 200 &&
+        data.sesiAktifId is string &&
+        data.sesiAktifId.size() >= 1 &&
+        data.sesiAktifId.size() <= 64 &&
+        data.penggunaAktifId is string &&
+        data.penggunaAktifId.size() >= 1 &&
+        data.penggunaAktifId.size() <= 64 &&
+        data.sekolah is map &&
+        data.sekolah.size() <= 20 &&
+        data.pengguna is list &&
+        data.pengguna.size() <= 50 &&
+        (data.pengguna.size() == 0 || data.pengguna[0] is map) &&
+        data.sesi is map &&
+        data.sesi.size() <= 20 &&
+        data.updatedAt is timestamp;
+    }
+
+    match /admins/{adminId} {
+      allow get: if isSignedIn() && isValidId(adminId) && (request.auth.uid == adminId || isAdmin());
+      allow list: if false;
+      allow create, update, delete: if false;
+    }
+
+    match /workspaces/{workspaceId} {
+      allow get: if isSignedIn() && isValidId(workspaceId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isSignedIn() && (existing().ownerId == request.auth.uid || isAdmin());
+
+      allow create: if isVerified() &&
+        isValidId(workspaceId) &&
+        isValidWorkspace(incoming()) &&
+        incoming().ownerId == request.auth.uid &&
+        incoming().updatedAt == request.time;
+
+      allow update: if isVerified() &&
+        isValidId(workspaceId) &&
+        isValidWorkspace(incoming()) &&
+        incoming().ownerId == existing().ownerId &&
+        incoming().updatedAt == request.time &&
+        (
+          isAdmin() ||
+          (
+            existing().ownerId == request.auth.uid &&
+            incoming().diff(existing()).affectedKeys().hasOnly([
+              'schoolName',
+              'sesiAktifId',
+              'penggunaAktifId',
+              'sekolah',
+              'pengguna',
+              'sesi',
+              'updatedAt'
+            ])
+          )
+        );
+
+      allow delete: if isVerified() &&
+        isValidId(workspaceId) &&
+        (existing().ownerId == request.auth.uid || isAdmin());
+    }
+  }
+}

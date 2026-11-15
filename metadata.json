@@ -1,0 +1,8 @@
+{
+  "name": "Remix Takwim Persekolahan",
+  "description": "Sistem pembahagian tugas guru: beban setiap guru dikira secara langsung dan Buku Pengurusan dijana sebagai PDF.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

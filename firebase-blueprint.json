@@ -1,0 +1,88 @@
+{
+  "entities": {
+    "Workspace": {
+      "title": "Workspace",
+      "description": "Synchronized school workload store across all user devices",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the workspace owner",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "schoolName": {
+          "type": "string",
+          "description": "Name of the school",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "sesiAktifId": {
+          "type": "string",
+          "description": "Active school session ID",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "penggunaAktifId": {
+          "type": "string",
+          "description": "Active internal role account ID",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "sekolah": {
+          "type": "object",
+          "description": "School profile map (nama, kod, alamat, logo, etc.)"
+        },
+        "pengguna": {
+          "type": "array",
+          "description": "Bounded list of role accounts in the school workspace (max 50)"
+        },
+        "sesi": {
+          "type": "object",
+          "description": "Map of school sessions containing teachers, divisions, committees, and settings"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of the last sync update"
+        }
+      },
+      "required": [
+        "ownerId",
+        "schoolName",
+        "sesiAktifId",
+        "penggunaAktifId",
+        "sekolah",
+        "pengguna",
+        "sesi",
+        "updatedAt"
+      ]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Trusted administrator marker document",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Admin UID",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        }
+      },
+      "required": ["uid"]
+    }
+  },
+  "firestore": {
+    "/workspaces/{workspaceId}": {
+      "schema": { "$ref": "#/entities/Workspace" },
+      "description": "Stores synchronized TugasAdil school workspace data per user or shared workspace ID"
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "Read-only administrator lookup collection"
+    }
+  }
+}

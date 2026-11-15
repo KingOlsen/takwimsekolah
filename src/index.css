@@ -1,0 +1,216 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Modern Cool Alabaster & Crisp Slate surfaces & ink */
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --surface-3: #e2e8f0;
+  --ink: #0f172a;
+  --ink-2: #334155;
+  --ink-3: #64748b;
+  --line: #e2e8f0;
+  --line-2: #cbd5e1;
+
+  /* Trending Electric Indigo primary brand & Vibrant Violet/Cyan accent */
+  --brand: #4f46e5;
+  --brand-2: #4338ca;
+  --brand-soft: #eef2ff;
+  --brand-text: #4338ca;
+
+  --accent: #06b6d4;
+  --accent-ink: #083344;
+
+  /* Semantic workload status tokens (Modern SaaS Emerald / Rose / Amber / Slate) */
+  --berat: #e11d48;
+  --berat-soft: #fff1f2;
+  --berat-ink: #9f1239;
+
+  --kurang: #64748b;
+  --kurang-soft: #f1f5f9;
+  --kurang-ink: #334155;
+
+  --baik: #059669;
+  --baik-soft: #ecfdf5;
+  --baik-ink: #065f46;
+
+  --amaran: #d97706;
+  --amaran-soft: #fffbeb;
+  --amaran-ink: #92400e;
+
+  /* Division spectrum harmonized around Modern Indigo, Cyan, Emerald, Violet & Amber */
+  --s0: #64748b;
+  --s1: #4f46e5;
+  --s2: #06b6d4;
+  --s3: #10b981;
+  --s4: #8b5cf6;
+  --s5: #f59e0b;
+  --s6: #ec4899;
+  --s7: #3b82f6;
+  --s8: #14b8a6;
+
+  --f-display: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --f-body: "DM Sans", system-ui, -apple-system, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.dark {
+  /* Deep Obsidian Slate surfaces & crisp light slate ink */
+  --bg: #090d16;
+  --surface: #111827;
+  --surface-2: #1e293b;
+  --surface-3: #334155;
+  --ink: #f8fafc;
+  --ink-2: #cbd5e1;
+  --ink-3: #94a3b8;
+  --line: #1e293b;
+  --line-2: #334155;
+
+  /* Luminous Indigo & Electric Cyan in dark mode */
+  --brand: #6366f1;
+  --brand-2: #4f46e5;
+  --brand-soft: #1e1b4b;
+  --brand-text: #a5b4fc;
+
+  --accent: #22d3ee;
+  --accent-ink: #083344;
+
+  --berat: #fb7185;
+  --berat-soft: #4c0519;
+  --berat-ink: #fecdd3;
+
+  --kurang: #94a3b8;
+  --kurang-soft: #1e293b;
+  --kurang-ink: #e2e8f0;
+
+  --baik: #34d399;
+  --baik-soft: #064e3b;
+  --baik-ink: #a7f3d0;
+
+  --amaran: #fbbf24;
+  --amaran-soft: #451a03;
+  --amaran-ink: #fde68a;
+}
+
+@layer base {
+  html {
+    font-family: var(--f-body);
+    background-color: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    selection-background-color: var(--brand);
+  }
+
+  ::selection {
+    background-color: var(--brand-soft);
+    color: var(--brand-text);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--f-display);
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+}
+
+.font-display {
+  font-family: var(--f-display);
+}
+
+.font-mono-num {
+  font-family: var(--f-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Subtle modern glass & grid utilities */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, color-mix(in srgb, var(--line) 45%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--line) 45%, transparent) 1px, transparent 1px);
+}
+
+/* Custom scrollbar for preview frames */
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: var(--line-2);
+  border-radius: 9999px;
+}
+
+/* Print stylesheet for Buku Pengurusan, Surat Lantikan & Laporan Penuh */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 14mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    height: auto !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-shell,
+  .print-main,
+  .print-scroll-wrap {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .print-only-root {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    zoom: 1 !important;
+    transform: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+  }
+
+  .print-page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .print-only-root > .print-page-break:first-child {
+    break-before: auto;
+    page-break-before: auto;
+  }
+
+  .print-avoid-break {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
